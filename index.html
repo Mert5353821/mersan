@@ -3,82 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sadece Senin İçin Bir Mesaj ❤️</title>
+    <title>Saniye İçin Yıl Dönümü Notu</title>
     <style>
-        /* CSS Kodları - Sayfanın Görünümü */
         body {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background-color: #ffe6f2; /* Açık Pembe Arka Plan */
+            background-color: #0d0d0d; /* Koyu arka plan */
+            color: #ffcccc; /* Açık pembe yazı */
             font-family: 'Arial', sans-serif;
             text-align: center;
-            padding: 20px;
+            padding: 50px;
         }
-
-        .container {
-            background-color: #ffffff; /* Beyaz Kutucuk */
-            padding: 40px 60px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 90%;
-            animation: fadeIn 1.5s ease-out;
-        }
-
         h1 {
-            color: #ff69b4; /* Sıcak Pembe Başlık Rengi */
-            font-size: 3em;
-            margin-bottom: 20px;
-            animation: pulse 2s infinite;
-        }
-
-        p {
-            color: #333;
-            font-size: 1.4em;
-            line-height: 1.6;
-            margin-bottom: 30px;
-        }
-
-        .signature {
-            font-style: italic;
-            color: #777;
-            font-size: 1.1em;
-            margin-top: 20px;
-        }
-
-        /* Animasyonlar */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            color: #ff3366; /* Parlak pembe başlık */
+            font-size: 2.5em;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h1>Sadece Benim İçin! ❤️</h1>
+    <h1>AŞK ALARMI: Lütfen Açılan Bildirimi Oku!</h1>
+    <p>Bu, sadece sana özel bir uyarıdır. Hayatımın en güzel alarmı sensin!</p>
+    
+    <script>
+        // Başlangıç tarihi: 19 Mart 2024
+        const start_date = new Date('2024-03-19T00:00:00');
+        const today = new Date();
+        const diff_time = today.getTime() - start_date.getTime();
         
-        <p>
-            Hayatıma girdiğin andan itibaren her şey daha güzel, daha anlamlı oldu. Sen benim güneşim, neşem ve en güzel hikayemsin. Seni kelimelerle anlatamayacağım kadar çok seviyorum. Bu mesaj, sana olan sonsuz sevgimin küçük bir simgesi.
-        </p>
-        <p>
-            Gözlerin, gülüşün, her şeyin beni benden alıyor. İyi ki varsın.
-        </p>
+        // Geçen gün sayısı
+        const diff_days = Math.floor(diff_time / (1000 * 60 * 60 * 24));
+        
+        // Mesaj içeriği
+        const alert_message = 
+            "Canım Saniye'm, hayatımın en değerli parçası,\n\n" +
+            "Bugün, seninle başlayan o sihirli günün üzerinden tam " + diff_days + " gün geçti. " +
+            "Resmi olarak **19 Mart 2024** tarihinde başlayan bu ilişki, benim için sadece bir tarih değil, " +
+            "hayatımın dönüm noktası oldu.\n\n" +
+            "Sen benim en iyi arkadaşım, en büyük destekçim ve kalbimin tek sahibisin. " +
+            "Seninle geçen her saniye, sıradan bir anı bile özel bir maceraya dönüştürüyor. " +
+            "Gözlerine her baktığımda, 'Maksimum Seviye Aşk Alarmı' çalıyor ve seni ne kadar çok sevdiğimi bir kez daha anlıyorum.\n\n" +
+            "Bana kattığın sonsuz neşe, huzur ve sevgi için minnettarım. " +
+            "Önümüzdeki nice 19 Martlarda, birlikte kuracağımız hayallerin heyecanını yaşıyorum.\n\n" +
+            "Seni çok, çok seviyorum! Bu dünyadaki en şanslı kişi benim, çünkü sen yanımdasın.\n\n" +
+            "Sana Sonsuza Dek Bağlı Olan Sevgilin.";
 
-        <div class="signature">
-            Sonsuz Sevgilerimle, [Mert altun]
-        </div>
-    </div>
+        // Maksimum seviye alert
+        alert(alert_message);
+
+        // Not: Bu sayfa, alert kapandıktan sonra da açık kalacaktır.
+    </script>
 
 </body>
 </html>
