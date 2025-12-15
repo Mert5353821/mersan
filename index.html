@@ -3,53 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saniye İçin Yıl Dönümü Notu</title>
+    <title>Saniye'ye Özel Kutlama</title>
     <style>
+        /* CSS kodları, görünümü güzelleştirmek için */
         body {
-            background-color: #0d0d0d; /* Koyu arka plan */
-            color: #ffcccc; /* Açık pembe yazı */
+            background: linear-gradient(to right, #ffb3d9, #ff6699); /* Geçişli pembe arka plan */
+            color: #ffffff;
             font-family: 'Arial', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
             text-align: center;
-            padding: 50px;
         }
         h1 {
-            color: #ff3366; /* Parlak pembe başlık */
-            font-size: 2.5em;
+            color: #800000; /* Koyu kırmızı başlık */
+            margin-bottom: 30px;
+        }
+        #gift-box {
+            width: 150px;
+            height: 150px;
+            background-color: #ff3366; /* Parlak kırmızı kutu */
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+            cursor: pointer; /* Tıklanabilir olduğunu gösteren imleç */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 80px;
+            margin-bottom: 30px;
+            transition: transform 0.3s ease;
+        }
+        #gift-box:hover {
+            transform: scale(1.1); /* Üzerine gelince hafif büyüme efekti */
+        }
+        #message-container {
+            width: 80%;
+            max-width: 600px;
+            background-color: rgba(255, 255, 255, 0.9); /* Yarı şeffaf beyaz mesaj kutusu */
+            color: #333333;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            white-space: pre-wrap; /* Satır atlamalarını korur */
+            text-align: left;
+            opacity: 0; /* Başlangıçta gizli */
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
     </style>
 </head>
 <body>
 
-    <h1>AŞK ALARMI: Lütfen Açılan Bildirimi Oku!</h1>
-    <p>Bu, sadece sana özel bir uyarıdır. Hayatımın en güzel alarmı sensin!</p>
-    
+    <h1>Canım Saniye'm, Sana Özel Bir Hediye Var!</h1>
+    <p>Hediyeyi açmak için aşağıdaki kutuya tıkla.</p>
+
+    <div id="gift-box" onclick="showMessage()">
+        🎁
+    </div>
+
+    <div id="message-container">
+        </div>
+
     <script>
-        // Başlangıç tarihi: 19 Mart 2024
-        const start_date = new Date('2024-03-19T00:00:00');
-        const today = new Date();
-        const diff_time = today.getTime() - start_date.getTime();
-        
-        // Geçen gün sayısı
-        const diff_days = Math.floor(diff_time / (1000 * 60 * 60 * 24));
-        
-        // Mesaj içeriği
-        const alert_message = 
-            "Canım Saniye'm, hayatımın en değerli parçası,\n\n" +
-            "Bugün, seninle başlayan o sihirli günün üzerinden tam " + diff_days + " gün geçti. " +
-            "Resmi olarak **19 Mart 2024** tarihinde başlayan bu ilişki, benim için sadece bir tarih değil, " +
-            "hayatımın dönüm noktası oldu.\n\n" +
-            "Sen benim en iyi arkadaşım, en büyük destekçim ve kalbimin tek sahibisin. " +
-            "Seninle geçen her saniye, sıradan bir anı bile özel bir maceraya dönüştürüyor. " +
-            "Gözlerine her baktığımda, 'Maksimum Seviye Aşk Alarmı' çalıyor ve seni ne kadar çok sevdiğimi bir kez daha anlıyorum.\n\n" +
-            "Bana kattığın sonsuz neşe, huzur ve sevgi için minnettarım. " +
-            "Önümüzdeki nice 19 Martlarda, birlikte kuracağımız hayallerin heyecanını yaşıyorum.\n\n" +
-            "Seni çok, çok seviyorum! Bu dünyadaki en şanslı kişi benim, çünkü sen yanımdasın.\n\n" +
-            "Sana Sonsuza Dek Bağlı Olan Sevgilin.";
+        function showMessage() {
+            // Başlangıç tarihi: 19 Mart 2024
+            const start_date = new Date('2024-03-19T00:00:00');
+            const today = new Date();
+            const diff_time = today.getTime() - start_date.getTime();
+            
+            // Geçen gün sayısı
+            const diff_days = Math.floor(diff_time / (1000 * 60 * 60 * 24));
+            
+            // Mesaj içeriği (Uzun Mesajınız)
+            const message = 
+                "**Canım Saniye'm, Hayatımın En Değerli Parçası,**\n\n" +
+                "Bu sayfayı açtığın için teşekkür ederim. Bu, seninle başlayan o sihirli günün üzerinden tam **" + diff_days + " gün** geçtiğini gösteren sana özel bir kutlamadır. " +
+                "Resmi olarak **19 Mart 2024** tarihinde başlayan bu ilişki, benim için sadece bir tarih değil, " +
+                "hayatımın dönüm noktası oldu.\n\n" +
+                "Sen benim en iyi arkadaşım, en büyük destekçim ve kalbimin tek sahibisin. " +
+                "Seninle geçen her saniye, sıradan bir anı bile özel bir maceraya dönüştürüyor. " +
+                "Gözlerine her baktığımda, kalbimdeki sevgi 'Maksimum Seviye Aşk Alarmı' çalıyor ve seni ne kadar çok sevdiğimi bir kez daha anlıyorum.\n\n" +
+                "Bana kattığın sonsuz neşe, huzur ve sevgi için minnettarım. " +
+                "Önümüzdeki nice 19 Martlarda, birlikte kuracağımız hayallerin heyecanını yaşıyorum. " +
+                "Seni çok, çok seviyorum! Bu dünyadaki en şanslı kişi benim, çünkü sen yanımdasın.\n\n" +
+                "**Sana Sonsuza Dek Bağlı Olan Sevgilin.**";
 
-        // Maksimum seviye alert
-        alert(alert_message);
-
-        // Not: Bu sayfa, alert kapandıktan sonra da açık kalacaktır.
+            // Mesajı sayfadaki alana yerleştir
+            const messageContainer = document.getElementById('message-container');
+            messageContainer.innerText = message;
+            
+            // Mesaj kutusunu görünür yap
+            messageContainer.classList.add('visible');
+            
+            // Kutuyu tıkladıktan sonra bir daha tıklanmasını engelle
+            document.getElementById('gift-box').onclick = null;
+            document.getElementById('gift-box').style.cursor = 'default';
+        }
     </script>
 
 </body>
