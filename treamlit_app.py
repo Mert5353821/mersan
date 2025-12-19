@@ -48,3 +48,4 @@ if veli_kodu:
         st.error("Veri bağlantısında hata oluştu. Lütfen Tablo ID'sini kontrol edin.")
 
 st.info("💡 Not: Raporları doğrudan Google E-Tablo üzerinden güncelleyebilirsiniz, siteye otomatik yansır.")
+
