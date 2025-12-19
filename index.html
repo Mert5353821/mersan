@@ -1,76 +1,50 @@
 import streamlit as st
 import pandas as pd
-from datetime import datetime
 
-# 1. SAYFA AYARLARI VE TASARIM
+# SAYFA AYARLARI
 st.set_page_config(page_title="Mersan Gelişim Atölyesi", page_icon="🌿")
 
+# GOOGLE TABLO BAĞLANTISI (Sadece ID'yi değiştirin)
+SHEET_ID = "TABLO_ID_BURAYA" 
+SHEET_URL = f"https://docs.google.com/spreadsheets/d/{SHEET_ID}/export?format=csv"
+
+# TASARIM (CSS)
 st.markdown("""
     <style>
-    .main { background-color: #f8f9fa; }
-    .stButton>button { width: 100%; border-radius: 10px; background-color: #2e7d32; color: white; height: 3em; font-weight: bold; }
-    .report-card { background: white; padding: 20px; border-radius: 15px; border-left: 5px solid #2e7d32; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-bottom: 20px; }
-    .stTextInput>div>div>input { border-radius: 10px; }
-    h1, h3 { color: #1e4620; text-align: center; }
+    .report-card { background: white; padding: 15px; border-radius: 10px; border-left: 5px solid #2e7d32; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); margin-bottom: 10px; }
+    .stButton>button { background-color: #2e7d32; color: white; border-radius: 20px; }
     </style>
     """, unsafe_allow_html=True)
 
-# 2. VERİ YÖNETİMİ (Basitlik için Session State kullanıyoruz)
-# Not: Gerçek bir veritabanı bağlanana kadar veriler burada durur.
-if 'veritabani' not in st.session_state:
-    st.session_state.veritabani = pd.DataFrame(columns=["Veli Kodu", "Öğrenci Adı", "Tarih", "Rapor Notu"])
+st.title("🌿 Mersan Gelişim Atölyesi")
+st.subheader("Veli Bilgi Sistemi")
 
-# 3. YAN MENÜ (NAVİGASYON)
-sayfa = st.sidebar.selectbox("İşlem Seçiniz", ["Veli Girişi", "Yönetici Paneli (Mersan)"])
+# VELİ GİRİŞ EKRANI
+veli_kodu = st.text_input("Size verilen veli kodunu giriniz:", type="password")
 
-# --- YÖNETİCİ PANELİ ---
-if sayfa == "Yönetici Paneli (Mersan)":
-    st.header("👨‍🏫 Rapor Giriş Paneli")
-    admin_sifre = st.text_input("Yönetici Şifresi:", type="password")
-    
-    if admin_sifre == "mersan2025": # Bu sizin giriş şifreniz
-        st.success("Giriş Yapıldı")
+if veli_kodu:
+    try:
+        # Veriyi Google Tablodan Çek
+        df = pd.read_csv(SHEET_URL)
         
-        with st.form("rapor_formu", clear_on_submit=True):
-            veli_kodu = st.text_input("Veliye Verilecek Özel Kod (Örn: ahmet01)")
-            ogrenci_adi = st.text_input("Öğrenci Adı Soyadı")
-            tarih = st.date_input("Ders Tarihi", datetime.now())
-            rapor_notu = st.text_area("Gelişim Notu / Ders Özeti")
-            
-            submit = st.form_submit_button("Raporu Kaydet ve Yayınla")
-            
-            if submit:
-                yeni_rapor = pd.DataFrame([[veli_kodu, ogrenci_adi, tarih.strftime("%d.%m.%Y"), rapor_notu]], 
-                                          columns=["Veli Kodu", "Öğrenci Adı", "Tarih", "Rapor Notu"])
-                st.session_state.veritabani = pd.concat([st.session_state.veritabani, yeni_rapor], ignore_index=True)
-                st.balloons()
-                st.success(f"{ogrenci_adi} için rapor başarıyla eklendi!")
-
-# --- VELİ GİRİŞİ ---
-else:
-    st.title("🌿 Mersan Gelişim Atölyesi")
-    st.subheader("Veli Bilgilendirme Sistemi")
-    
-    veli_giris_kodu = st.text_input("Çocuğunuza özel kodu giriniz:", placeholder="Örn: ahmet01", type="password")
-    
-    if veli_giris_kodu:
-        df = st.session_state.veritabani
-        sonuclar = df[df['Veli Kodu'] == veli_giris_kodu]
+        # Filtreleme
+        filtre = df[df['veli_kodu'].astype(str) == veli_kodu]
         
-        if not sonuclar.empty:
-            st.info(f"Hoş geldiniz. **{sonuclar.iloc[0]['Öğrenci Adı']}** için kayıtlı raporlar aşağıdadır:")
+        if not filtre.empty:
+            ogrenci = filtre['ogrenci_adi'].iloc[0]
+            st.success(f"Hoş geldiniz, {ogrenci} Velisi")
             
-            # Raporları tersten listele (en yeni en üstte)
-            for index, row in sonuclar[::-1].iterrows():
+            for index, row in filtre[::-1].iterrows():
                 st.markdown(f"""
                     <div class="report-card">
-                        <span style="color: gray; font-size: 0.8em;">{row['Tarih']}</span>
-                        <h4 style="margin-top: 5px;">Günlük Gelişim Raporu</h4>
-                        <p style="color: #333; line-height: 1.6;">{row['Rapor Notu']}</p>
+                        <small>{row['tarih']}</small>
+                        <h4>Günlük Gelişim Raporu</h4>
+                        <p>{row['rapor_notu']}</p>
                     </div>
                 """, unsafe_allow_html=True)
         else:
-            st.warning("Bu koda ait bir kayıt bulunamadı. Lütfen kodu kontrol edin.")
+            st.error("Hatalı kod! Lütfen kurumla iletişime geçin.")
+    except Exception as e:
+        st.error("Veri bağlantısında hata oluştu. Lütfen Tablo ID'sini kontrol edin.")
 
-    st.markdown("---")
-    st.caption("© 2025 Mersan Gelişim Atölyesi | İletişim: [Telefon Numaranız]")
+st.info("💡 Not: Raporları doğrudan Google E-Tablo üzerinden güncelleyebilirsiniz, siteye otomatik yansır.")
